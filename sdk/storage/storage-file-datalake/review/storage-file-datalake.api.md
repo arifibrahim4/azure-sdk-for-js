@@ -255,6 +255,14 @@ export interface CommonOptions {
 export type CopyStatusType = "pending" | "success" | "aborted" | "failed";
 
 // @public
+export interface CpkInfo {
+    // Warning: (ae-forgotten-export) The symbol "EncryptionAlgorithmType" needs to be exported by the entry point index.d.ts
+    encryptionAlgorithm?: EncryptionAlgorithmType;
+    encryptionKey?: string;
+    encryptionKeySha256?: string;
+}
+
+// @public
 abstract class Credential_2 implements RequestPolicyFactory {
     create(_nextPolicy: RequestPolicy, _options: RequestPolicyOptions): RequestPolicy;
 }
@@ -507,6 +515,7 @@ export interface FileAppendOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: LeaseAccessConditions;
+    customerProvidedKey?: CpkInfo;
     // (undocumented)
     onProgress?: (progress: TransferProgressEvent) => void;
     // (undocumented)
@@ -547,6 +556,7 @@ export interface FileFlushOptions extends CommonOptions {
     close?: boolean;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     // (undocumented)
     pathHttpHeaders?: PathHttpHeaders;
     // (undocumented)
@@ -564,6 +574,7 @@ export interface FileParallelUploadOptions extends CommonOptions {
     chunkSize?: number;
     close?: boolean;
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     maxConcurrency?: number;
     metadata?: Metadata;
     onProgress?: (progress: TransferProgressEvent) => void;
@@ -604,6 +615,7 @@ export interface FileQueryJsonTextConfiguration {
 export interface FileQueryOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     inputTextConfiguration?: FileQueryJsonTextConfiguration | FileQueryCsvTextConfiguration | FileQueryParquetConfiguration;
     onError?: (error: FileQueryError) => void;
     onProgress?: (progress: TransferProgressEvent) => void;
@@ -683,6 +695,7 @@ export interface FileReadOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     // (undocumented)
     maxRetryRequests?: number;
     // (undocumented)
@@ -708,6 +721,7 @@ export interface FileReadToBufferOptions extends CommonOptions {
     chunkSize?: number;
     concurrency?: number;
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     maxRetryRequestsPerChunk?: number;
     onProgress?: (progress: TransferProgressEvent) => void;
 }
@@ -1204,8 +1218,10 @@ export function newPipeline(credential?: StorageSharedKeyCredential | AnonymousC
 export interface Path {
     // (undocumented)
     contentLength?: number;
+    creationTime?: string;
     // (undocumented)
     etag?: string;
+    expiryTime?: string;
     // (undocumented)
     group?: string;
     // (undocumented)
@@ -1245,6 +1261,7 @@ export interface PathAppendDataHeaders {
     clientRequestId?: string;
     contentMD5?: Uint8Array;
     date?: Date;
+    encryptionKeySha256?: string;
     etag?: string;
     isServerEncrypted?: boolean;
     requestId?: string;
@@ -1273,8 +1290,10 @@ export interface PathCreateHeaders {
     contentLength?: number;
     continuation?: string;
     date?: Date;
+    encryptionKeySha256?: string;
     errorCode?: string;
     etag?: string;
+    isServerEncrypted?: boolean;
     lastModified?: Date;
     requestId?: string;
     version?: string;
@@ -1298,6 +1317,7 @@ export interface PathCreateHttpHeaders {
 export interface PathCreateIfNotExistsOptions extends CommonOptions {
     // (undocumented)
     abortSignal?: AbortSignalLike;
+    customerProvidedKey?: CpkInfo;
     // (undocumented)
     metadata?: Metadata;
     // (undocumented)
@@ -1319,6 +1339,7 @@ export interface PathCreateOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
     // (undocumented)
     metadata?: Metadata;
     // (undocumented)
@@ -1369,6 +1390,7 @@ export type PathDeleteResponse = PathDeleteHeaders & {
 // @public
 export interface PathExistsOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
+    customerProvidedKey?: CpkInfo;
 }
 
 // @public
@@ -1376,7 +1398,9 @@ export interface PathFlushDataHeaders {
     clientRequestId?: string;
     contentLength?: number;
     date?: Date;
+    encryptionKeySha256?: string;
     etag?: string;
+    isServerEncrypted?: boolean;
     lastModified?: Date;
     requestId?: string;
     version?: string;
@@ -1542,6 +1566,7 @@ export interface PathGetPropertiesOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
 }
 
 // @public (undocumented)
@@ -1584,7 +1609,12 @@ export interface PathModel {
     // (undocumented)
     contentLength?: number;
     // (undocumented)
+    creationTime?: string;
+    encryptionScope?: string;
+    // (undocumented)
     etag?: string;
+    // (undocumented)
+    expiryTime?: string;
     // (undocumented)
     group?: string;
     // (undocumented)
@@ -1721,6 +1751,7 @@ export interface PathSetHttpHeadersOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
 }
 
 // @public (undocumented)
@@ -1756,6 +1787,7 @@ export interface PathSetMetadataOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     // (undocumented)
     conditions?: DataLakeRequestConditions;
+    customerProvidedKey?: CpkInfo;
 }
 
 // @public (undocumented)
