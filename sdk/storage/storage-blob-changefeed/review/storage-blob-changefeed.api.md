@@ -14,6 +14,9 @@ import { StorageSharedKeyCredential } from '@azure/storage-blob';
 import { TokenCredential } from '@azure/core-http';
 
 // @public
+export type AccessTier = "P4" | "P6" | "P10" | "P15" | "P20" | "P30" | "P40" | "P50" | "P60" | "P70" | "P80" | "Hot" | "Cool" | "Archive";
+
+// @public
 export class BlobChangeFeedClient {
     constructor(url: string, credential?: StorageSharedKeyCredential | AnonymousCredential | TokenCredential, options?: StoragePipelineOptions);
     constructor(url: string, pipeline: Pipeline);
@@ -29,6 +32,7 @@ export interface BlobChangeFeedEvent {
     eventType: BlobChangeFeedEventType;
     id: string;
     metadataVersion: string;
+    schemaVersion?: number;
     subject: string;
     topic: string;
 }
@@ -36,13 +40,21 @@ export interface BlobChangeFeedEvent {
 // @public
 export interface BlobChangeFeedEventData {
     api: string;
+    asyncOperationInfo?: BlobOperationResult;
+    blobAccessTier?: AccessTier;
     blobType: BlobType;
+    blobVersion?: string;
     clientRequestId: string;
+    containerVersion?: string;
     contentLength: number;
     contentType: string;
     etag: string;
+    previousInfo?: ChangeFeedEventPreviousInfo;
     requestId: string;
     sequencer: string;
+    snapshot?: string;
+    updatedBlobProperties?: UpdatedBlobProperties;
+    updatedBlobTags?: BlobTagsChange;
     url: string;
 }
 
@@ -64,11 +76,42 @@ export interface BlobChangeFeedListChangesOptions extends CommonOptions {
 }
 
 // @public
+export interface BlobOperationResult {
+    copyId?: string;
+    destinationAccessTier?: AccessTier;
+    isAsync: boolean;
+}
+
+// @public
+export interface BlobPropertyChange {
+    newValue: string;
+    oldValue: string;
+    propertyName: string;
+}
+
+// @public
+export interface BlobTagsChange {
+    newTags: Record<string, string>;
+    oldTags: Record<string, string>;
+}
+
+// @public
 export type BlobType = "BlockBlob" | "AppendBlob" | "PageBlob";
+
+// @public
+export interface ChangeFeedEventPreviousInfo {
+    newBlobVersion?: string;
+    oldBlobVersion?: string;
+    previousTier?: AccessTier;
+    softDeleteSnapshot?: string;
+    wasBlobSoftDeleted: boolean;
+}
 
 // @public
 export function newPipeline(credential?: StorageSharedKeyCredential | AnonymousCredential | TokenCredential, pipelineOptions?: StoragePipelineOptions): Pipeline;
 
+// @public
+export type UpdatedBlobProperties = Record<string, BlobPropertyChange>;
 
 // (No @packageDocumentation comment for this package)
 

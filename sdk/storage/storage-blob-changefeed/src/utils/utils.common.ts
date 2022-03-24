@@ -6,6 +6,7 @@ import { ContainerClient, CommonOptions } from "@azure/storage-blob";
 import { CHANGE_FEED_SEGMENT_PREFIX, CHANGE_FEED_INITIALIZATION_SEGMENT } from "./constants";
 import { createSpan } from "./tracing";
 import { SpanStatusCode } from "@azure/core-tracing";
+import { BlobChangeFeedEvent, UpdatedBlobProperties } from "../models/BlobChangeFeedEvent";
 
 const millisecondsInAnHour = 60 * 60 * 1000;
 export function ceilToNearestHour(date: Date | undefined): Date | undefined {
@@ -169,4 +170,90 @@ export function minDate(dateA: Date, dateB?: Date): Date {
     return dateB;
   }
   return dateA;
+}
+
+export function rawEventToBlobChangeFeedEvent(rawEvent: any): BlobChangeFeedEvent
+{
+  if (rawEvent.eventTime) {
+    rawEvent.eventTime = new Date(rawEvent.eventTime);
+  }
+  if (rawEvent.eTag) {
+    rawEvent.etag = rawEvent.eTag;
+    delete rawEvent.eTag;
+  }
+  if (rawEvent.data) {
+    if (rawEvent.data.previousInfo)
+    {
+      let previousInfo = rawEvent.data.previousInfo;
+
+      if (previousInfo.SoftDeleteSnapshot) {
+        previousInfo.softDeleteSnapshot = previousInfo.SoftDeleteSnapshot;
+        delete previousInfo.SoftDeleteSnapshot;
+      }    
+      if (previousInfo.WasBlobSoftDeleted) {
+        previousInfo.wasBlobSoftDeleted = previousInfo.WasBlobSoftDeleted;
+        delete previousInfo.WasBlobSoftDeleted;
+      }    
+      if (previousInfo.BlobVersion) {
+        previousInfo.newBlobVersion = previousInfo.BlobVersion;
+        delete previousInfo.BlobVersion;
+      }    
+      if (previousInfo.LastVersion) {
+        previousInfo.oldBlobVersion = previousInfo.LastVersion;
+        delete previousInfo.LastVersion;
+      }    
+      if (previousInfo.PreviousTier) {
+        previousInfo.previousTier = previousInfo.PreviousTier;
+        delete previousInfo.PreviousTier;
+      }
+
+      rawEvent.data.previousInfo = previousInfo;
+    }
+
+    if (rawEvent.data.blobPropertiesUpdated) {
+      let updatedBlobProperties: UpdatedBlobProperties = {};
+      Object.entries(rawEvent.data.blobPropertiesUpdated).map(item => {
+        const blobPropertyChange = {
+          propertyName: item[0],
+          oldValue: (item[1] as any).previous as string,
+          newValue: (item[1] as any).current as string,
+        };
+        updatedBlobProperties[item[0]] = blobPropertyChange;
+      })
+      rawEvent.data.updatedBlobProperties = updatedBlobProperties;
+      delete rawEvent.data.blobPropertiesUpdated;
+    }
+
+    if (rawEvent.data.asyncOperationInfo) {
+      if (rawEvent.data.asyncOperationInfo.DestinationTier) {
+        rawEvent.data.asyncOperationInfo.destinationAccessTier = rawEvent.data.asyncOperationInfo.DestinationTier;
+        delete rawEvent.data.asyncOperationInfo.DestinationTier;
+      } 
+      if ("WasAsyncOperation" in rawEvent.data.asyncOperationInfo) {
+        rawEvent.data.asyncOperationInfo.isAsync = rawEvent.data.asyncOperationInfo.WasAsyncOperation
+        delete rawEvent.data.asyncOperationInfo.WasAsyncOperation;
+      }
+      if (rawEvent.data.asyncOperationInfo.CopyId) {
+        rawEvent.data.asyncOperationInfo.copyId = rawEvent.data.asyncOperationInfo.CopyId;
+        delete rawEvent.data.asyncOperationInfo.CopyId;
+      }
+    }
+
+    if (rawEvent.data.blobTagsUpdated) {
+      rawEvent.data.updatedBlobTags = {
+        newTags: rawEvent.data.blobTagsUpdated.current,
+        oldTags: rawEvent.data.blobTagsUpdated.previous,
+      };
+      
+      delete rawEvent.data.blobTagsUpdated;
+    }
+
+    if (rawEvent.data.blobTier)
+    {
+      rawEvent.data.blobAccessTier = rawEvent.data.blobTier;
+      delete rawEvent.data.blobTier;
+    }
+  }
+
+  return rawEvent as BlobChangeFeedEvent;
 }
