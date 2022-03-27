@@ -464,6 +464,9 @@ export type BlobCopyFromURLResponse = BlobCopyFromURLHeaders & {
 };
 
 // @public
+export type BlobCopySourceTags = "REPLACE" | "COPY";
+
+// @public
 export interface BlobCreateSnapshotHeaders {
     clientRequestId?: string;
     date?: Date;
@@ -1350,6 +1353,7 @@ export type BlobStartCopyFromURLResponse = BlobStartCopyFromURLHeaders & {
 export interface BlobSyncCopyFromURLOptions extends CommonOptions {
     abortSignal?: AbortSignalLike;
     conditions?: BlobRequestConditions;
+    copySourceTags?: BlobCopySourceTags;
     encryptionScope?: string;
     immutabilityPolicy?: BlobImmutabilityPolicy;
     legalHold?: boolean;
@@ -1618,6 +1622,7 @@ export interface BlockBlobSyncUploadFromURLOptions extends CommonOptions {
     blobHTTPHeaders?: BlobHTTPHeaders;
     conditions?: BlobRequestConditions;
     copySourceBlobProperties?: boolean;
+    copySourceTags?: BlobCopySourceTags;
     customerProvidedKey?: CpkInfo;
     encryptionScope?: string;
     metadata?: Metadata;
@@ -2542,6 +2547,9 @@ export class PageBlobClient extends BlobClient {
     getPageRanges(offset?: number, count?: number, options?: PageBlobGetPageRangesOptions): Promise<PageBlobGetPageRangesResponse>;
     getPageRangesDiff(offset: number, count: number, prevSnapshot: string, options?: PageBlobGetPageRangesDiffOptions): Promise<PageBlobGetPageRangesDiffResponse>;
     getPageRangesDiffForManagedDisks(offset: number, count: number, prevSnapshotUrl: string, options?: PageBlobGetPageRangesDiffOptions): Promise<PageBlobGetPageRangesDiffResponse>;
+    getPageRangesDiffForManagedDisksInPages(options: PageBlobGetPageRangesDiffForManagedDisksInPagesOptions): PagedAsyncIterableIterator<PageRangeInfo, PageBlobGetPageRangesDiffResponseModel>;
+    getPageRangesDiffInPages(options: PageBlobGetPageRangesDiffInPagesOptions): PagedAsyncIterableIterator<PageRangeInfo, PageBlobGetPageRangesDiffResponseModel>;
+    getPageRangesInPages(options: PageBlobGetPageRangesInPagesOptions): PagedAsyncIterableIterator<PageRangeInfo, PageBlobGetPageRangesResponseModel>;
     resize(size: number, options?: PageBlobResizeOptions): Promise<PageBlobResizeResponse>;
     startCopyIncremental(copySource: string, options?: PageBlobStartCopyIncrementalOptions): Promise<PageBlobCopyIncrementalResponse>;
     updateSequenceNumber(sequenceNumberAction: SequenceNumberActionType, sequenceNumber?: number, options?: PageBlobUpdateSequenceNumberOptions): Promise<PageBlobUpdateSequenceNumberResponse>;
@@ -2627,6 +2635,15 @@ export type PageBlobCreateResponse = PageBlobCreateHeaders & {
 };
 
 // @public
+export interface PageBlobGetPageRangesDiffForManagedDisksInPagesOptions extends CommonOptions {
+    abortSignal?: AbortSignalLike;
+    conditions?: BlobRequestConditions;
+    count: number;
+    offset: number;
+    prevSnapshotUrl: string;
+}
+
+// @public
 export interface PageBlobGetPageRangesDiffHeaders {
     blobContentLength?: number;
     clientRequestId?: string;
@@ -2636,6 +2653,15 @@ export interface PageBlobGetPageRangesDiffHeaders {
     lastModified?: Date;
     requestId?: string;
     version?: string;
+}
+
+// @public
+export interface PageBlobGetPageRangesDiffInPagesOptions extends CommonOptions {
+    abortSignal?: AbortSignalLike;
+    conditions?: BlobRequestConditions;
+    count: number;
+    offset: number;
+    prevSnapshot: string;
 }
 
 // @public
@@ -2654,6 +2680,17 @@ export interface PageBlobGetPageRangesDiffResponse extends PageList, PageBlobGet
     };
 }
 
+// Warning: (ae-forgotten-export) The symbol "PageList" needs to be exported by the entry point index.d.ts
+//
+// @public
+export type PageBlobGetPageRangesDiffResponseModel = PageBlobGetPageRangesDiffHeaders & PageList_2 & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: PageList_2;
+        parsedHeaders: PageBlobGetPageRangesDiffHeaders;
+    };
+};
+
 // @public
 export interface PageBlobGetPageRangesHeaders {
     blobContentLength?: number;
@@ -2664,6 +2701,14 @@ export interface PageBlobGetPageRangesHeaders {
     lastModified?: Date;
     requestId?: string;
     version?: string;
+}
+
+// @public
+export interface PageBlobGetPageRangesInPagesOptions extends CommonOptions {
+    abortSignal?: AbortSignalLike;
+    conditions?: BlobRequestConditions;
+    count?: number;
+    offset?: number;
 }
 
 // @public
@@ -2680,6 +2725,15 @@ export interface PageBlobGetPageRangesResponse extends PageList, PageBlobGetPage
         parsedBody: PageList;
     };
 }
+
+// @public
+export type PageBlobGetPageRangesResponseModel = PageBlobGetPageRangesHeaders & PageList_2 & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: PageList_2;
+        parsedHeaders: PageBlobGetPageRangesHeaders;
+    };
+};
 
 // @public
 export interface PageBlobRequestConditions extends BlobRequestConditions, SequenceNumberAccessConditions {
@@ -2816,6 +2870,16 @@ export type PageBlobUploadPagesResponse = PageBlobUploadPagesHeaders & {
 export interface PageList {
     clearRange?: Range_2[];
     pageRange?: Range_2[];
+}
+
+// @public (undocumented)
+export interface PageRangeInfo {
+    // (undocumented)
+    end: number;
+    // (undocumented)
+    isClear: boolean;
+    // (undocumented)
+    start: number;
 }
 
 // @public
