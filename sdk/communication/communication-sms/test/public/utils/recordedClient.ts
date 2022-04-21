@@ -36,8 +36,7 @@ const sanitizerOptions: SanitizerOptions = {
       fakeConnString: envSetupForPlayback["COMMUNICATION_LIVETEST_STATIC_CONNECTION_STRING"],
     },
   ],
-  generalSanitizers: [
-    { regex: true, target: "(https:\/\/)([^/',]*)", value: "$1endpoint" },
+  generalSanitizers: [    
     { regex: true, target: `"access_token"\s?:\s?"[^"]*"`, value: `"access_token":"sanitized"` },
     { regex: true, target: `"repeatabilityRequestId"\s?:\s?"[^"]*"`, value: `"repeatabilityRequestId":"sanitized"` },
     { regex: true, target: `"repeatabilityFirstSent"\s?:\s?"[^"]*"`, value: `"repeatabilityFirstSent":"Thu, 01 Jan 1970 00:00:00 GMT"` },

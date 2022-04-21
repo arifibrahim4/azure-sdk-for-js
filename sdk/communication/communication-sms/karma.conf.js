@@ -82,11 +82,6 @@ module.exports = function (config) {
       properties: {}, // key value pair of properties to add to the <properties> section of the report
     },
 
-    jsonToFileReporter: {
-      filter: jsonRecordingFilterFunction,
-      outputPath: ".",
-    },
-
     // web server port
     port: 9876,
 
