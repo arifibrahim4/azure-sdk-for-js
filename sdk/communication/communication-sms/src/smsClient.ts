@@ -7,7 +7,7 @@ import {
   isKeyCredential,
   createCommunicationAuthPolicy,
 } from "@azure/communication-common";
-import { KeyCredential, TokenCredential } from "@azure/core-auth";
+import { KeyCredential, TokenCredential, isTokenCredential } from "@azure/core-auth";
 import {
   CommonClientOptions,
   OperationOptions
@@ -89,7 +89,7 @@ export interface SmsSendResult {
  * @param options - The value being checked.
  */
 const isSmsClientOptions = (options: any): options is SmsClientOptions =>
-  !!options && !isKeyCredential(options);
+  !!options && !isTokenCredential(options) && !isKeyCredential(options);
 
 /**
  * A SmsClient represents a Client to the Azure Communication Sms service allowing you

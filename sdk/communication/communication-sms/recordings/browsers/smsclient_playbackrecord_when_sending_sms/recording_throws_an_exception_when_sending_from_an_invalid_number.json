@@ -19,9 +19,9 @@
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/100.0.4889.0 Safari/537.36",
-        "x-ms-client-request-id": "b8f9eb68-1cfa-4ae7-8015-df497fb10825",
-        "x-ms-content-sha256": "X52WIaN2\u002BA/k5c0dzrTex1xMn\u002BqQXnEem4WpOPJvoNs=",
-        "x-ms-date": "Thu, 21 Apr 2022 14:08:04 GMT",
+        "x-ms-client-request-id": "3db1359e-3f83-432b-ab6a-8b15318da8e2",
+        "x-ms-content-sha256": "XKcVNmFZX9gd0lz7f7PDFMUwa1yIkPUMwiH3KUJnI/8=",
+        "x-ms-date": "Thu, 21 Apr 2022 14:59:23 GMT",
         "x-ms-useragent": "azsdk-js-communication-sms/1.2.0-beta.1 core-rest-pipeline/1.8.0 OS/Win32"
       },
       "RequestBody": {
@@ -42,13 +42,13 @@
       "StatusCode": 400,
       "ResponseHeaders": {
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Thu, 21 Apr 2022 14:08:04 GMT",
-        "MS-CV": "en3m3em/GEmVvISOEc1JeA.0",
+        "Date": "Thu, 21 Apr 2022 14:59:23 GMT",
+        "MS-CV": "geqdNdvp2UybD8upIgFoWg.0",
         "Strict-Transport-Security": "max-age=2592000",
         "Transfer-Encoding": "chunked",
-        "X-Azure-Ref": "0RGVhYgAAAACE6shjJ\u002BKCSaQ\u002BQz/JUvEjUFJHMDFFREdFMDcxOQA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
+        "X-Azure-Ref": "0S3FhYgAAAACk3QRWvl12RKxc2/Vo6OFeUFJHMDFFREdFMDkxNgA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
         "X-Cache": "CONFIG_NOCACHE",
-        "X-Processing-Time": "17ms"
+        "X-Processing-Time": "20ms"
       },
       "ResponseBody": {
         "From": [

@@ -19,9 +19,9 @@
         "Sec-Fetch-Mode": "cors",
         "Sec-Fetch-Site": "same-site",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/100.0.4889.0 Safari/537.36",
-        "x-ms-client-request-id": "a578fb7a-fe59-4cf0-9bd2-94004803b2be",
-        "x-ms-content-sha256": "1oh6t79XQTwS9woQnRvMd8Tr4HHyw68kscepVwHjJ/A=",
-        "x-ms-date": "Thu, 21 Apr 2022 14:08:02 GMT",
+        "x-ms-client-request-id": "0a75aa8e-a8e9-47e6-a140-7a6bf245e4ef",
+        "x-ms-content-sha256": "ZM8EHPfdyEHl\u002BxZujBWfL4A/vgLM320N5\u002B\u002BFjt6Jnuw=",
+        "x-ms-date": "Thu, 21 Apr 2022 14:59:20 GMT",
         "x-ms-useragent": "azsdk-js-communication-sms/1.2.0-beta.1 core-rest-pipeline/1.8.0 OS/Win32"
       },
       "RequestBody": {
@@ -42,19 +42,19 @@
       "ResponseHeaders": {
         "api-supported-versions": "2020-07-20-preview1, 2020-08-20-preview, 2021-03-07",
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Thu, 21 Apr 2022 14:08:02 GMT",
-        "MS-CV": "EtmpR14JoU\u002BhuP3621dWVA.0",
+        "Date": "Thu, 21 Apr 2022 14:59:21 GMT",
+        "MS-CV": "z\u002B0eBWPqgEuUI5dWmVlwDA.0",
         "Strict-Transport-Security": "max-age=2592000",
         "Transfer-Encoding": "chunked",
-        "X-Azure-Ref": "0QmVhYgAAAACNcZaI34gzQ5ow8Nr/\u002BAHXUFJHMDFFREdFMDcxOQA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
+        "X-Azure-Ref": "0SHFhYgAAAABPnhTefSJsR7iHKbXrbVh5UFJHMDFFREdFMDkxNgA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
         "X-Cache": "CONFIG_NOCACHE",
-        "X-Processing-Time": "133ms"
+        "X-Processing-Time": "103ms"
       },
       "ResponseBody": {
         "value": [
           {
             "to": "\u002B14255550123",
-            "messageId": "Outgoing_20220421140803f7a0735a-37b8-418d-b556-57b85227e727_noam",
+            "messageId": "Outgoing_20220421145921c05582f2-aa22-4a01-b65b-ec41209c6f40_noam",
             "httpStatusCode": 202,
             "repeatabilityResult": "accepted",
             "successful": true

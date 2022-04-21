@@ -11,9 +11,9 @@
         "Content-Length": "348",
         "Content-Type": "application/json",
         "User-Agent": "azsdk-js-communication-sms/1.2.0-beta.1 core-rest-pipeline/1.8.0 Node/v14.19.0 OS/(x64-Windows_NT-10.0.22000)",
-        "x-ms-client-request-id": "85d5ff3d-fdda-4a9d-adb8-7fe39bf9e850",
-        "x-ms-content-sha256": "M8M99Q/Trjb\u002BdRq/vtHyKBnOhiztB\u002BfvZYeyRKsPan0=",
-        "x-ms-date": "Thu, 21 Apr 2022 14:07:49 GMT"
+        "x-ms-client-request-id": "8c3da7bc-d64d-40c1-90c3-ff26e2dbadb3",
+        "x-ms-content-sha256": "D/Oe\u002BYy6aTeRztYcOy9btluDxxtPiLyII4P1G361XrM=",
+        "x-ms-date": "Thu, 21 Apr 2022 14:59:06 GMT"
       },
       "RequestBody": {
         "from": "\u002B14255550123",
@@ -38,19 +38,19 @@
       "ResponseHeaders": {
         "api-supported-versions": "2020-07-20-preview1, 2020-08-20-preview, 2021-03-07",
         "Content-Type": "application/json; charset=utf-8",
-        "Date": "Thu, 21 Apr 2022 14:07:49 GMT",
-        "MS-CV": "jZDCYUWLKkeiPspOKuW/1A.0",
+        "Date": "Thu, 21 Apr 2022 14:59:06 GMT",
+        "MS-CV": "pVMEEKWO0kmalW\u002BE87oAoQ.0",
         "Strict-Transport-Security": "max-age=2592000",
         "Transfer-Encoding": "chunked",
-        "X-Azure-Ref": "0NWVhYgAAAAAsfTbjtCctTKPHAN\u002Belv8eUFJHMDFFREdFMDcxOQA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
+        "X-Azure-Ref": "0OnFhYgAAAACCAfzqRwiyT5Ak2e3Cz3K0UFJHMDFFREdFMDkxNgA5ZmM3YjUxOS1hOGNjLTRmODktOTM1ZS1jOTE0OGFlMDllODE=",
         "X-Cache": "CONFIG_NOCACHE",
-        "X-Processing-Time": "256ms"
+        "X-Processing-Time": "230ms"
       },
       "ResponseBody": {
         "value": [
           {
             "to": "\u002B14255550123",
-            "messageId": "Outgoing_20220421140750ceaf82ef-05d3-4865-b1bf-712e4ec95383_noam",
+            "messageId": "Outgoing_20220421145906ee6ee364-75c7-44fe-a4e8-f2471f8e6b83_noam",
             "httpStatusCode": 202,
             "repeatabilityResult": "accepted",
             "successful": true
