@@ -8,10 +8,7 @@ import {
   createCommunicationAuthPolicy,
 } from "@azure/communication-common";
 import { KeyCredential, TokenCredential, isTokenCredential } from "@azure/core-auth";
-import {
-  CommonClientOptions,
-  OperationOptions
-} from "@azure/core-client";
+import { CommonClientOptions, OperationOptions } from "@azure/core-client";
 import { InternalPipelineOptions } from "@azure/core-rest-pipeline";
 import { SpanStatusCode } from "@azure/core-tracing";
 import { SmsApiClient } from "./generated/src/smsApiClient";
@@ -129,7 +126,7 @@ export class SmsClient {
   ) {
     const { url, credential } = parseClientArguments(connectionStringOrUrl, credentialOrOptions);
     const options = isSmsClientOptions(credentialOrOptions) ? credentialOrOptions : maybeOptions;
-    
+
     const internalPipelineOptions: InternalPipelineOptions = {
       ...options,
       ...{
