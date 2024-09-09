@@ -7,7 +7,7 @@ export interface NotificationContentParent {
   channelRegistrationId: string;
   /** The native external platform user identifiers of the recipient. */
   to: string[];
-  kind: string;
+  kind: CommunicationMessageKind;
 }
 
 /** A request to send a text notification. */
@@ -18,12 +18,42 @@ export interface TextNotificationContent extends NotificationContentParent {
   content: string;
 }
 
-/** A request to send a media notification. */
-export interface MediaNotificationContent extends NotificationContentParent {
+/** A request to send an image notification. */
+export interface ImageNotificationContent extends NotificationContentParent {
   /** Message notification type is image. */
   kind: "image";
   /** Optional text content. */
   content?: string;
+  /** A media url for the file. Required if the type is one of the supported media types, e.g. image */
+  mediaUri: string;
+}
+
+/** A request to send a document notification. */
+export interface DocumentNotificationContent extends NotificationContentParent {
+  /** Message notification type is image. */
+  kind: "document";
+  /** Optional text content. */
+  content?: string;
+  /** Optional name for the file. */
+  fileName?: string;
+  /** A media url for the file. Required if the type is one of the supported media types, e.g. image */
+  mediaUri: string;
+}
+
+/** A request to send a video notification. */
+export interface VideoNotificationContent extends NotificationContentParent {
+  /** Message notification type is image. */
+  kind: "video";
+  /** Optional text content. */
+  content?: string;
+  /** A media url for the file. Required if the type is one of the supported media types, e.g. image */
+  mediaUri: string;
+}
+
+/** A request to send an audio notification. */
+export interface AudioNotificationContent extends NotificationContentParent {
+  /** Message notification type is audio. */
+  kind: "audio";
   /** A media url for the file. Required if the type is one of the supported media types, e.g. image */
   mediaUri: string;
 }
@@ -52,7 +82,7 @@ export interface MessageTemplate {
 export interface MessageTemplateValueParent {
   /** Template binding reference name */
   name: string;
-  kind: string;
+  kind: MessageTemplateValueKind;
 }
 
 /** The message template's text value information. */
@@ -125,7 +155,7 @@ export interface MessageTemplateQuickAction extends MessageTemplateValueParent {
 
 /** The binding object to link values to the template specific locations */
 export interface MessageTemplateBindingsParent {
-  kind: string;
+  kind: MessageTemplateBindingsKind;
 }
 
 /** The template bindings for WhatsApp */
@@ -156,7 +186,7 @@ export interface WhatsAppMessageTemplateBindingsButton {
    *
    * Possible values: "quickReply", "url"
    */
-  subType: string;
+  subType: WhatsAppMessageButtonSubType;
   /** The name of the referenced item in the template values. */
   refValue: string;
 }
@@ -165,7 +195,10 @@ export interface WhatsAppMessageTemplateBindingsButton {
 export type NotificationContent =
   | NotificationContentParent
   | TextNotificationContent
-  | MediaNotificationContent
+  | ImageNotificationContent
+  | DocumentNotificationContent
+  | VideoNotificationContent
+  | AudioNotificationContent
   | TemplateNotificationContent;
 /** The class describes a parameter of a template. */
 export type MessageTemplateValue =
@@ -180,3 +213,11 @@ export type MessageTemplateValue =
 export type MessageTemplateBindings =
   | MessageTemplateBindingsParent
   | WhatsAppMessageTemplateBindings;
+/** Alias for CommunicationMessageKind */
+export type CommunicationMessageKind = string;
+/** Alias for MessageTemplateValueKind */
+export type MessageTemplateValueKind = string;
+/** Alias for MessageTemplateBindingsKind */
+export type MessageTemplateBindingsKind = string;
+/** Alias for WhatsAppMessageButtonSubType */
+export type WhatsAppMessageButtonSubType = string;

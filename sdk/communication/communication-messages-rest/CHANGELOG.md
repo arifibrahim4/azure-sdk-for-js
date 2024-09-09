@@ -11,6 +11,7 @@
 ### Other Changes
 
 - Fix the test recording
+- Added the change to support additional media types - audio, video, document, image
 
 ## 1.0.1 (2024-03-07)
 
